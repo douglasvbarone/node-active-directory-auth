@@ -25,3 +25,11 @@ And
 cd web/
 npm run dev
 ```
+
+## Server
+
+There are three end-points:
+
+- `POST /api/login/`: Expects a JSON with `username` and a `password` in it. Returns a `200 OK` response with a JWT if login was successful, or a `401 Unauthorized` response otherwise.
+- `GET /api/public/`: Return a example JSON data whether user is logged in or not.
+- `GET /api/protected/`: Return a example JSON data if the user is logged in (in other words, if a valid authorization token was provided) or return a `401 Unauthorized` response otherwise.
