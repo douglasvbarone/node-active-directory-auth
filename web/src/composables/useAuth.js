@@ -47,7 +47,7 @@ export function useAuth() {
     const storageToken = localStorage.getItem('token')
     const storageUser = localStorage.getItem('user')
 
-    if (token && user) {
+    if (storageToken && storageUser) {
       token.value = storageToken
       user.value = storageUser
     }
