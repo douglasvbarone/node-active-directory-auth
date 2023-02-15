@@ -1,13 +1,9 @@
-require('dotenv').config()
+import express from 'express'
+import bodyParser from 'body-parser'
+import cors from 'cors'
 
-const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const { sign, verify } = require('jsonwebtoken')
-
-const { authenticate } = require('./ldap')
-
-const JWT_SECRET = process.env.JWT_SECRET || 'A_very_long_secret'
+import { authenticate } from './ldap.mjs'
+import { generateToken, validateToken } from './jwt.mjs'
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -22,9 +18,8 @@ app.post('/api/login', async (req, res) => {
   try {
     await authenticate(username, password)
 
-    const jwt = sign({ username }, JWT_SECRET)
-
-    res.json({ jwt: `Bearer ${jwt}` })
+    const token = generateToken(username)
+    res.json({ token })
   } catch (error) {
     res.status(401).json({ error: error.message })
   }
@@ -39,18 +34,10 @@ app.get('/api/public', (req, res) => {
 app.get('/api/protected', async (req, res) => {
   const { authorization } = req.headers
 
-  if (!authorization)
-    return res.status(401).json({ error: 'No authorization header' })
-
-  const [bearer, token] = authorization.split(' ')
-
-  if (bearer !== 'Bearer')
-    return res.status(401).json({ error: 'Invalid authorization header' })
-
   try {
-    const { username } = verify(token, JWT_SECRET)
+    const username = validateToken(authorization)
 
-    res.json({ requestUser: username, data: 'Some protected data' })
+    res.json({ data: `Some protected data for ${username}` })
   } catch (error) {
     res.status(401).json({ error: error.message })
   }

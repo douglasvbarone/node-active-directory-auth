@@ -1,4 +1,4 @@
-const { Client, InvalidCredentialsError } = require('ldapts')
+import { Client, InvalidCredentialsError } from 'ldapts'
 
 const client = new Client({
   url: process.env.LDAP_URL || 'ldap://exemple.org'
@@ -6,7 +6,7 @@ const client = new Client({
 
 const domain = process.env.LDAP_DOMAIN || 'DOMAIN'
 
-async function authenticate(username, password) {
+export async function authenticate(username, password) {
   try {
     await client.bind(`${domain}\\${username}`, password)
     return true
@@ -18,8 +18,4 @@ async function authenticate(username, password) {
   } finally {
     client.unbind()
   }
-}
-
-module.exports = {
-  authenticate
 }
