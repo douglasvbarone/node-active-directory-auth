@@ -1,5 +1,8 @@
 <template>
-  <div v-if="user">Hello {{ user }}</div>
+  <div v-if="user">
+    Hello <strong>{{ user }}</strong
+    >!
+  </div>
   <div v-else>You are not logged in</div>
 </template>
 

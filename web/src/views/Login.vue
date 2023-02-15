@@ -2,7 +2,7 @@
   <div>
     <h1>Login</h1>
     <p v-if="user">You are logged in as {{ user }}</p>
-    <form v-else @submit.prevent="handleLogin">
+    <form class="login-form" v-else @submit.prevent="handleLogin">
       <label for="username">Username</label>
       <input type="text" id="username" v-model="username" />
       <label for="password">Password</label>
@@ -30,3 +30,29 @@ function handleLogin() {
   }
 }
 </script>
+
+<style>
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.login-form label {
+  margin-top: 10px;
+}
+
+.login-form input {
+  margin-top: 5px;
+  padding: 5px;
+}
+
+.login-form button {
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.login-form div {
+  margin-top: 10px;
+}
+</style>
