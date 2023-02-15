@@ -8,14 +8,15 @@ const domain = process.env.LDAP_DOMAIN || 'DOMAIN'
 
 export async function authenticate(username, password) {
   try {
+    if (!username || !password) throw new Error('Missing credentials')
+
     await client.bind(`${domain}\\${username}`, password)
-    return true
-  } catch (err) {
-    if (err instanceof InvalidCredentialsError)
+  } catch (error) {
+    if (error instanceof InvalidCredentialsError)
       throw new Error('Invalid credentials')
 
-    throw err
+    throw error // In case of other errors
   } finally {
-    client.unbind()
+    client.unbind() // Always unbind after bind
   }
 }
