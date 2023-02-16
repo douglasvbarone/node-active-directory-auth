@@ -1,6 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
+import { randomUUID } from 'crypto'
 
 import { authenticate } from './ldap.mjs'
 import { generateToken, validateToken } from './jwt.mjs'
@@ -37,7 +38,9 @@ app.get('/api/protected', async (req, res) => {
   try {
     const username = validateToken(authorization)
 
-    res.json({ data: `Some protected data for ${username}` })
+    res.json({
+      data: `Some protected data for ${username}. Rand: ${randomUUID()}`
+    })
   } catch (error) {
     res.status(401).json({ error: error.message })
   }
