@@ -28,7 +28,7 @@ app.post('/api/login', async (req, res) => {
 
 // A public route. Anyone can access it.
 app.get('/api/public', (req, res) => {
-  res.json({ data: 'Some public data' })
+  res.json({ data: `Some public data. Rand: ${randomUUID()}` })
 })
 
 // A protected route. Only authenticated users can access it.
