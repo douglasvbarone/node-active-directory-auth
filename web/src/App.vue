@@ -9,7 +9,7 @@ const { user, logout } = useAuth()
     <ul class="top-menu">
       <li><router-link to="/">Home</router-link></li>
       <li><router-link to="/public">Public Info</router-link></li>
-      <li v-if="user">
+      <li :class="{ inactive: !user }">
         <router-link to="/protected">Protected Info</router-link>
       </li>
       <li v-if="user"><a href="#" @click="logout">Logout</a></li>
@@ -20,6 +20,10 @@ const { user, logout } = useAuth()
 </template>
 
 <style scoped>
+li.inactive a {
+  color: #ccc;
+  text-decoration: line-through;
+}
 .container {
   max-width: 800px;
   margin: 0 auto;

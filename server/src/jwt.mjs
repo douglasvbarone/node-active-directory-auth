@@ -11,6 +11,8 @@ export function generateToken(username) {
 }
 
 export function validateToken(authorization) {
+  console.log({ authorization })
+
   if (!authorization) throw new Error('Missing authorization header')
 
   const [scheme, token] = authorization.split(' ')

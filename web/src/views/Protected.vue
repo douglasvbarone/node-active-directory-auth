@@ -24,7 +24,7 @@ const publicInfo = ref({})
 async function getProtectedInfo() {
   const response = await fetch(PROTECTED_URL, {
     headers: {
-      authorization: token.value
+      authorization: token.value || ''
     }
   })
 

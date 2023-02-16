@@ -2,9 +2,9 @@ import { ref, onMounted } from 'vue'
 
 const LOGIN_URL = 'http://localhost:3000/api/login'
 
-const token = ref(null)
-const user = ref(null)
-const error = ref(null)
+const token = ref(undefined)
+const user = ref(undefined)
+const error = ref(undefined)
 
 export function useAuth() {
   async function login(username, password) {
@@ -35,9 +35,9 @@ export function useAuth() {
   }
 
   async function logout() {
-    user.value = null
-    token.value = null
-    error.value = null
+    user.value = undefined
+    token.value = undefined
+    error.value = undefined
 
     localStorage.removeItem('token')
     localStorage.removeItem('user')
