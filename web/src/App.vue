@@ -29,7 +29,7 @@ const { user, logout } = useAuth()
 
   flex-direction: column;
 
-  background-color: #eee;
+  background-color: #fbfbfb;
   border-radius: 10px;
 
   align-items: center;
